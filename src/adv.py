@@ -41,11 +41,11 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
-player = Player(input('\nWhat is your name? '),room['outside'])
+new_player = Player(input('\nWhat is your name? '),room['outside'])
 
 os.system("clear")
 
-print(player.current_room)
+print(new_player.current_room)
 
 # Write a loop that:
 #
@@ -58,9 +58,44 @@ print(player.current_room)
 #
 # If the user enters "q", quit the game.
 
-while True:
-    cmd = input("Cardinal Direction of Choice: ").lower()
+cmd = ""
 
-    if cmd in ['n', 's', 'e', 'w']:
-        player.travel(cmd)
+print("\nPossible commands:\n>> 'n', 's', 'e', 'w'\n>> 'q' to quit")
+
+print(f"You are {new_player.current_room}")
+
+while cmd != ["q"]:
+    cmd = str(input("\nType a command or 'q' to quit: ")).lower()
+
+    # Movement
+    if cmd == "n":
+        if new_player.current_room.n_to != None:
+            new_player.current_room = new_player.current_room.n_to
+            print(f"\nYou enter the {new_player.current_room}")
+        else:
+            print("\nYou cannot continue North from here")
+
+    elif cmd == "s":
+        if new_player.current_room.s_to != None:
+            new_player.current_room = new_player.current_room.s_to
+            print(f"\nYou enter the {new_player.current_room}")
+        else:
+            print("\nYou cannot continue South from here")
+
+    elif cmd == "w":
+        if new_player.current_room.w_to != None:
+            new_player.current_room = new_player.current_room.w_to
+            print(f"\nYou enter the {new_player.current_room}")
+        else:
+            print("\nYou cannot continue West from here")
+
+    elif cmd == "e":
+        if new_player.current_room.e_to != None:
+            new_player.current_room = new_player.current_room.e_to
+            print(f"\nYou enter the {new_player.current_room}")
+        else:
+            print("\nYou cannot continue East from here")
     
+    if cmd == "q":
+        print("Farewell, adventurer.")
+        exit()
