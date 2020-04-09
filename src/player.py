@@ -19,12 +19,28 @@ class Player:
             print("\nYour inventory is currently empty.")
 
     def take_item(self, item):
-        self.inventory.append(item)
-        print(f"\nYou take the {item.name}") 
+        i = None
+        for it in self.current_room.items:
+            if it.name == item:
+                i = it
+        if i is None:
+            print('The item you are looking for is not in the room.')   
+        else:         
+            self.inventory.append(i)
+            print(f'{item} is yours now!')
+            self.current_room.items.remove(i)
+            print(f'{i.name} has been removed.')
 
     def drop_item(self, item):
-        self.inventory.remove(item)
-        print(f"\nYou drop the {item.name}") 
+        i = None
+        for it in self.inventory:
+            if it.name == item:
+                i = it
+        if i is None:
+            print('Item is not in inventory.')  
+        else:          
+            self.inventory.remove(i)
+            self.current_room.items.append(i)
 
 
     # def add_item(self, item):

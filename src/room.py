@@ -19,7 +19,7 @@ class Room:
         if len(self.items) > 0:
             output = f"You have discovered: "
             for i in self.items:
-                output += f"\n {i.name}"
+                output += f"\n{i.name} - {i.description}"
             print(output)
         else:
             print("Ah, alas! There is nothing in this dreaded room.")

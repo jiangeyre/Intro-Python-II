@@ -117,15 +117,14 @@ while cmd != ["q"]:
 
     # take item(s)
     elif cmd == 'take':
-        cmd_item = cmd[1].lower()
-        new_player.current_room.remove_item(cmd_item)
-        new_player.take_item(item[f"{cmd_item}"])
+        item_add = input('Please enter the item you wish you take into your inventory: ')
+        new_player.take_item(item_add)
 
     # drop item(s)
     elif cmd == "drop":
-        cmd_item = cmd[1].lower()
-        new_player.drop_item(item[f"{cmd_item}"])
-        new_player.current_room.add_item(item[f"{cmd_item}"])
+        new_player.check_inventory()
+        item_rem = input('Which item do you wish to remove? ')
+        new_player.drop_item(item_rem)
 
     elif cmd == "inv":
         new_player.check_inventory()
