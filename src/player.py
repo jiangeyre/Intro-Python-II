@@ -13,7 +13,7 @@ class Player:
         if len(self.inventory) > 0:
             output = f"\nInventory:\n"
             for item in self.inventory:
-                output += f"{item.name}"
+                output += f"{item.name}\n"
             print(output)
         else:
             print("\nYour inventory is currently empty.")
@@ -29,7 +29,7 @@ class Player:
             self.inventory.append(i)
             print(f'{item} is yours now!')
             self.current_room.items.remove(i)
-            print(f'{i.name} has been removed.')
+            print(f'{i.name} has been removed from the {self.current_room}.')
 
     def drop_item(self, item):
         i = None
@@ -41,15 +41,4 @@ class Player:
         else:          
             self.inventory.remove(i)
             self.current_room.items.append(i)
-
-
-    # def add_item(self, item):
-    #     i = None
-    #     for x in self.current_room.items:
-    #         if x.name == item:
-    #             i = x
-    #         if i is None:
-    #             print('This item is not in the current room.')
-    #         else:
-    #             self.inventory.append(i)
-    #             print(f"You have obtained {item}!")
+            print('{i.item} has been removed! Good day.')
