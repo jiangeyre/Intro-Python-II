@@ -72,7 +72,7 @@ print(new_player.current_room)
 
 cmd = ""
 
-print("\nPossible commands:\n>> 'n', 's', 'e', 'w'\n>> 'q' to quit\n>>'take' + <item name>\n>>'drop' + <item name>\n")
+print("\nPossible commands:\n>> 'n', 's', 'e', 'w'\n>> 'q' to quit\n>>'search' - to search room\n>>'take' + <item name>\n>>'drop' + <item name>\n>>'inv' - to check inventory")
 
 print(f"You are {new_player.current_room}")
 
@@ -112,13 +112,18 @@ while cmd != ["q"]:
         print("Farewell, adventurer.")
         exit()
 
+    elif cmd == 'search':
+        new_player.current_room.search()
+
     # take item(s)
     elif cmd == 'take':
+        cmd_item = cmd[1].lower()
         new_player.current_room.remove_item(cmd_item)
         new_player.take_item(item[f"{cmd_item}"])
 
     # drop item(s)
     elif cmd == "drop":
+        cmd_item = cmd[1].lower()
         new_player.drop_item(item[f"{cmd_item}"])
         new_player.current_room.add_item(item[f"{cmd_item}"])
 
