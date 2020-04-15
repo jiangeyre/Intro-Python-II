@@ -9,13 +9,36 @@ class Player:
     def __str__(self):
         return (f"{self.name} is in {self.current_room}.")
 
-    def add_item(self, item):
+    def check_inventory(self):
+        if len(self.inventory) > 0:
+            output = f"\nInventory:\n"
+            for item in self.inventory:
+                output += f"{item.name}\n"
+            print(output)
+        else:
+            print("\nYour inventory is currently empty.")
+
+    def take_item(self, item):
         i = None
-        for x in self.current_room.items:
-            if x.name == item:
-                i = x
-            if i is None:
-                print('This item is not in the current room.')
-            else:
-                self.inventory.append(i)
-                print(f"You have obtained {item}!")
+        for it in self.current_room.items:
+            if it.name == item:
+                i = it
+        if i is None:
+            print('The item you are looking for is not in the room.')   
+        else:         
+            self.inventory.append(i)
+            print(f'{item} is yours now!')
+            self.current_room.items.remove(i)
+            print(f'{i.name} has been removed from the {self.current_room}.')
+
+    def drop_item(self, item):
+        i = None
+        for it in self.inventory:
+            if it.name == item:
+                i = it
+        if i is None:
+            print('Item is not in inventory.')  
+        else:          
+            self.inventory.remove(i)
+            self.current_room.items.append(i)
+            print('{i.item} has been removed! Good day.')

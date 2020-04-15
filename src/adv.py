@@ -1,26 +1,38 @@
 from room import Room
 from player import Player
+from item import Item
+
+# Declare the items
+
+item = {
+    'key': Item('Key', 'It is very veryshiny! What will it open up?'),
+    'note': Item('Note', 'There is a terribly written poem on here.'),
+    'can': Item('Can', 'Why!? It is a can of SPAM!'),
+    'sani': Item('Sani', 'Gotta make sure that your hands are clean.'),
+    'tp': Item('TP', 'Do not forget to wipe!')
+}
+
 
 # Declare all the rooms
 import os
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons", [Item('Note', 'There is a terribly written poem on here.')]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", [Item('Key', 'It is very veryshiny! What will it open up?')]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", [Item('Can', 'Why!? It is a can of SPAM!')]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""", [Item('Sani', 'Gotta make sure that your hands are clean.')]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""", [Item('TP', 'Do not forget to wipe!')]),
 }
 
 
@@ -39,7 +51,7 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
-# Make a new player object that is currently in the 'outside' room.
+# Make a new player object that is currently in the 'outside' room. You can input the user name.
 
 new_player = Player(input('\nWhat is your name? '),room['outside'])
 
@@ -60,7 +72,7 @@ print(new_player.current_room)
 
 cmd = ""
 
-print("\nPossible commands:\n>> 'n', 's', 'e', 'w'\n>> 'q' to quit")
+print("\nPossible commands:\n>> 'n', 's', 'e', 'w'\n>> 'q' to quit\n>>'search' - to search room\n>>'take' + <item name>\n>>'drop' + <item name>\n>>'inv' - to check inventory")
 
 print(f"You are {new_player.current_room}")
 
@@ -99,3 +111,20 @@ while cmd != ["q"]:
     if cmd == "q":
         print("Farewell, adventurer.")
         exit()
+
+    elif cmd == 'search':
+        new_player.current_room.search()
+
+    # take item(s)
+    elif cmd == 'take':
+        item_add = input('Please enter the item you wish you take into your inventory: ')
+        new_player.take_item(item_add)
+
+    # drop item(s)
+    elif cmd == "drop":
+        new_player.check_inventory()
+        item_rem = input('Which item do you wish to remove? ')
+        new_player.drop_item(item_rem)
+
+    elif cmd == "inv":
+        new_player.check_inventory()
